@@ -90,6 +90,7 @@ class Ui_Dialog(object):
         self.ICAO.setText("")
         self.regionPath.setText("")
         self.geoPath.setText("")
+        self.progressBar.setValue(0)
 
     def generateGNG(self):
         if self.regionPath.text() is not "":
