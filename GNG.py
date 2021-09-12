@@ -83,7 +83,6 @@ class Ui_Dialog(object):
             caption='Select SHP file:',
             filter='ESRI Shapefile (*.shp)',
             )
-        print(filename)
         self.geoPath.setText(filename)
 
     def resetForm(self):
