@@ -92,9 +92,9 @@ class Ui_Dialog(object):
         self.progressBar.setValue(0)
 
     def generateGNG(self):
-        if self.regionPath.text() is not "":
+        if self.regionPath.text() != "":
             readRegion(self.regionPath.text(), self.ICAO.text())
-        if self.geoPath.text() is not "":
+        if self.geoPath.text() != "":
             readGEO(self.geoPath.text(), self.ICAO.text())
         self.progressBar.setValue(100)
 
