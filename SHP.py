@@ -51,7 +51,7 @@ def readGEO(file, ICAO, region = "GEO"):
         for shape in shapes:
             color = shape.record.as_dict()['Color']
             fr = shape.shape.points[0]
-            for p in shape.shape.points[1:-1]:
+            for p in shape.shape.points:
                 to = p
                 if fr == to:
                     continue
