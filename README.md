@@ -12,6 +12,8 @@ Import the Regions via the GNG Import field.
 
 Import the lines by adding a new entry in SCT Entries and pasting in the generated file contents.
 
+Import the labels by adding a new entry in Labels and pasting in the generated file contents.
+
 ## TODO
 - Add coordinate system verification
-- Add text label support from point features
+- Add shape type verification
