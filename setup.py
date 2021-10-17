@@ -15,7 +15,7 @@ options = {
 setup(
     name="SHP to GNG",
     options=options,
-    version="1.0",
+    version="1.1",
     description='Converts SHP files to GNG importable data',
     executables=executables
 )
