@@ -6,7 +6,7 @@ Dependencies:
 - pyQt5
 
 ## Usage
-Create a separate ESRI Shapefile for regions and lines. Both Shapefiles need to be created with WGS 84 reference system and have to have a field named **color** that will be used to determine the features color.
+Create a separate ESRI Shapefile for regions and lines. Both Shapefiles need to be created with WGS 84 reference system and have to have a field named **Color** that will be used to determine the features color. Labels use a field called **Label**.
 
 Import the Regions via the GNG Import field.
 
