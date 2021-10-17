@@ -58,3 +58,13 @@ def readGEO(file, ICAO, region = "GEO"):
                 f.write(f"{dd2dms(fr[1], 'y')} {dd2dms(fr[0])} {dd2dms(to[1], 'y')} {dd2dms(to[0])} {color}\n")
                 fr = p
     f.close()
+
+def readLabels(file, ICAO, region="Labels"):
+    f = open(f"{ICAO}.{region}.txt", "w")
+    with shapefile.Reader(file) as shp:
+        shapes = shp.shapeRecords()
+        for s in shapes:
+            label = s.record.as_dict()['Label']
+            pos = s.shape.points[0]
+            f.write(f"{dd2dms(pos[1], 'y')} {dd2dms(pos[0])} {label}\n")
+    f.close()            

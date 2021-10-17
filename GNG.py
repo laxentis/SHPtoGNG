@@ -9,14 +9,14 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from SHP import readGEO, readRegion
+from SHP import readGEO, readLabels, readRegion
 import os
 
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
-        Dialog.resize(408, 295)
+        Dialog.resize(408, 325)
         Dialog.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedStates))
         self.buttonBox = QtWidgets.QDialogButtonBox(Dialog)
         self.buttonBox.setGeometry(QtCore.QRect(10, 260, 391, 31))
@@ -51,6 +51,17 @@ class Ui_Dialog(object):
         self.geoPath.setEnabled(False)
         self.geoPath.setObjectName("geoPath")
         self.verticalLayout.addWidget(self.geoPath)
+
+        self.selectLabelButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.selectLabelButton.setObjectName("selectLabelButton")
+        self.selectLabelButton.clicked.connect(self.getSHPlabel)
+        self.verticalLayout.addWidget(self.selectLabelButton)
+        self.labelPath = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.labelPath.setEnabled(False)
+        self.labelPath.setObjectName("labelPath")
+        self.verticalLayout.addWidget(self.labelPath)
+
+
         self.progressBar = QtWidgets.QProgressBar(self.verticalLayoutWidget)
         self.progressBar.setProperty("value", 0)
         self.progressBar.setObjectName("progressBar")
@@ -70,6 +81,8 @@ class Ui_Dialog(object):
         self.regionPath.setPlaceholderText(_translate("Dialog", "Path to region shapefile"))
         self.selectGeoButton.setText(_translate("Dialog", "Select GEO SHP"))
         self.geoPath.setPlaceholderText(_translate("Dialog", "Path to GEO shapefile"))
+        self.selectLabelButton.setText(_translate("Dialog", "Select labels SHP"))
+        self.labelPath.setPlaceholderText(_translate("Dialog", "Path to labels shapefile"))
 
     def getSHPRegion(self):
         filename, _ = QtWidgets.QFileDialog.getOpenFileName(
@@ -85,6 +98,13 @@ class Ui_Dialog(object):
             )
         self.geoPath.setText(filename)
 
+    def getSHPlabel(self):
+        filename, _ = QtWidgets.QFileDialog.getOpenFileName(
+            caption='Select SHP file:',
+            filter='ESRI Shapefile (*.shp)',
+            )
+        self.labelPath.setText(filename)
+
     def resetForm(self):
         self.ICAO.setText("")
         self.regionPath.setText("")
@@ -92,10 +112,15 @@ class Ui_Dialog(object):
         self.progressBar.setValue(0)
 
     def generateGNG(self):
+        self.progressBar.setValue(0)
         if self.regionPath.text() != "":
             readRegion(self.regionPath.text(), self.ICAO.text())
+            self.progressBar.setValue(33)
         if self.geoPath.text() != "":
             readGEO(self.geoPath.text(), self.ICAO.text())
+            self.progressBar.setValue(66)
+        if self.labelPath.text() != "":
+            readLabels(self.labelPath.text(), self.ICAO.text())
         self.progressBar.setValue(100)
 
 
